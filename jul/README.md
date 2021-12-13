@@ -1,9 +1,6 @@
-in order to build 
-example 
-cd dropwizard
-gradle build -x test -Prelease=true
 
-artifact is in build/libs
+
+#artifact is in build/libs
 
 
 # The New Relic `java.util.logging` Extension

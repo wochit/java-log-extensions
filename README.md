@@ -1,3 +1,10 @@
+###in order to build 
+###example 
+###cd dropwizard
+###gradle build -x test -Prelease=true
+### artifact found in build/lib
+
+
 [![Community Plus header](https://github.com/newrelic/opensource-website/raw/master/src/images/categories/Community_Plus.png)](https://opensource.newrelic.com/oss-category/#community-plus)
 
 # New Relic logging extensions
