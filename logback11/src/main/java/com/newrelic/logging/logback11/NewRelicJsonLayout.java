@@ -4,18 +4,22 @@
  */
 
 package com.newrelic.logging.logback11;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.newrelic.logging.core.ElementName;
+import com.newrelic.logging.core.IPResolveHelper;
+import com.newrelic.logging.core.MessageParser;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
 public class NewRelicJsonLayout extends LayoutBase<ILoggingEvent> {
+    private ObjectMapper mapper = new ObjectMapper();
 
 	@Override
     public String doLayout(ILoggingEvent event) {
@@ -40,6 +44,10 @@ public class NewRelicJsonLayout extends LayoutBase<ILoggingEvent> {
         generator.writeStringField(ElementName.LOGGER_NAME, event.getLoggerName());
         generator.writeStringField(ElementName.THREAD_NAME, event.getThreadName());
 
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, MessageParser.getMessageParameters(event.getRenderedMessage()));
+        generator.writeObjectField(ElementName.MESSAGE_PARAMETERS, writer.toString());
+        generator.writeObjectField(ElementName.MACHINE_IP, IPResolveHelper.getMachineIp());
         if (event.hasCallerData()) {
             StackTraceElement element = event.getCallerData()[event.getCallerData().length - 1];
             generator.writeStringField(ElementName.CLASS_NAME, element.getClassName());

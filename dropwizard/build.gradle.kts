@@ -1,6 +1,5 @@
 plugins {
     java
-    id("com.github.spotbugs").version("4.4.4")
 }
 
 group = "com.newrelic.logging"
@@ -65,9 +64,3 @@ tasks.register<Jar>("javadocJar") {
 }
 
 apply(from = "$rootDir/gradle/publish.gradle.kts")
-
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
-    reports.create("html") {
-        isEnabled = true
-    }
-}

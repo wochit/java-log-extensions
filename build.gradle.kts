@@ -19,4 +19,4 @@ subprojects {
         options.compilerArgs.add("-Xlint:unchecked")
         options.isDeprecation = true
     }
-}
+    }

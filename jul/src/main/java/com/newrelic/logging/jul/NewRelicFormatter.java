@@ -8,12 +8,15 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.newrelic.logging.core.ElementName;
 import com.newrelic.logging.core.ExceptionUtil;
+import com.newrelic.logging.core.IPResolveHelper;
+import com.newrelic.logging.core.MessageParser;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * A {@link Formatter} that will render New Relic's JSON log format.
@@ -27,6 +30,8 @@ import java.util.logging.LogRecord;
  * }</pre>
  */
 public class NewRelicFormatter extends Formatter {
+    private ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public String format(LogRecord record) {
         StringWriter sw = new StringWriter();
@@ -41,11 +46,18 @@ public class NewRelicFormatter extends Formatter {
     }
 
     private void writeToGenerator(LogRecord record, JsonGenerator generator) throws IOException {
+        String textMessage = formatMessage(record);
         generator.writeStartObject();
-        generator.writeObjectField(ElementName.MESSAGE, formatMessage(record));
+        generator.writeObjectField(ElementName.MESSAGE,textMessage);
         generator.writeObjectField(ElementName.TIMESTAMP, record.getMillis());
         generator.writeObjectField(ElementName.LOG_LEVEL, record.getLevel().toString());
         generator.writeObjectField(ElementName.LOGGER_NAME, record.getLoggerName());
+
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, MessageParser.getMessageParameters(textMessage));
+        generator.writeObjectField(ElementName.MESSAGE_PARAMETERS, writer.toString());
+        generator.writeObjectField(ElementName.MACHINE_IP, IPResolveHelper.getMachineIp());
+
 
         if (record.getSourceClassName() != null && record.getSourceMethodName() != null) {
             generator.writeObjectField(ElementName.CLASS_NAME, record.getSourceClassName());

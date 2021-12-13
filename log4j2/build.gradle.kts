@@ -1,6 +1,5 @@
 plugins {
     java
-    id("com.github.spotbugs").version("4.4.4")
 }
 
 group = "com.newrelic.logging"
@@ -21,9 +20,10 @@ val includeInJar: Configuration by configurations.creating
 configurations["compileOnly"].extendsFrom(includeInJar)
 
 dependencies {
-    annotationProcessor("org.apache.logging.log4j:log4j-core:2.13.3")
+    annotationProcessor("org.apache.logging.log4j:log4j-core:2.15.0")
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.13.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
+    implementation("org.apache.logging.log4j:log4j-core:2.15.0")
     implementation("com.newrelic.agent.java:newrelic-api:5.6.0")
     includeInJar(project(":core"))
 
@@ -64,9 +64,3 @@ tasks.register<Jar>("javadocJar") {
 }
 
 apply(from = "$rootDir/gradle/publish.gradle.kts")
-
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
-    reports.create("html") {
-        isEnabled = true
-    }
-}

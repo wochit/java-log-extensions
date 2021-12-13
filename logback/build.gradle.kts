@@ -1,6 +1,5 @@
 plugins {
     java
-    id("com.github.spotbugs").version("4.4.4")
 }
 
 group = "com.newrelic.logging"
@@ -21,6 +20,7 @@ configurations["compileOnly"].extendsFrom(includeInJar)
 
 dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("ch.qos.logback:logback-core:1.2.0")
     implementation("ch.qos.logback:logback-classic:1.2.0")
     implementation("com.newrelic.agent.java:newrelic-api:5.6.0")
@@ -62,10 +62,3 @@ tasks.register<Jar>("javadocJar") {
 }
 
 apply(from = "$rootDir/gradle/publish.gradle.kts")
-
-tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
-    excludeFilter.set(file("spotbugs-filter.xml"))
-    reports.create("html") {
-        isEnabled = true
-    }
-}

@@ -6,7 +6,7 @@
 package com.newrelic.logging.core;
 
 public class ExceptionUtil {
-    public static final int MAX_STACK_SIZE = 10;
+    public static final int MAX_STACK_SIZE = 500;
     public static String getErrorStack(Throwable throwable) {
         if (throwable == null) {
             return null;
