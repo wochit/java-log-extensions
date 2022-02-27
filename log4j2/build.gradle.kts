@@ -23,6 +23,7 @@ configurations["compileOnly"].extendsFrom(includeInJar)
 dependencies {
     annotationProcessor("org.apache.logging.log4j:log4j-core:2.17.1")
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("org.apache.logging.log4j:log4j-core:2.17.1")
     implementation("com.newrelic.agent.java:newrelic-api:7.4.3")
     includeInJar(project(":core"))

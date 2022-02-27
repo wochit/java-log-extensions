@@ -34,8 +34,8 @@ configure<PublishingExtension> {
     }
     repositories {
         maven {
-            val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            val releasesRepoUrl = uri("http://dev.internal.wochit.com:8081/nexus/content/repositories/releases/")
+            val snapshotsRepoUrl = uri("http://dev.internal.wochit.com:8081/nexus/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 
             configure<SigningExtension> {
@@ -48,8 +48,8 @@ configure<PublishingExtension> {
             }
 
             credentials {
-                username = System.getenv("SONATYPE_USERNAME")
-                password = System.getenv("SONATYPE_PASSWORD")
+                username = "gal.mazor"
+                password = "123456" 
             }
         }
     }

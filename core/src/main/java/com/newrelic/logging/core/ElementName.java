@@ -6,6 +6,8 @@ package com.newrelic.logging.core;
 
 public class ElementName {
     public static final String MESSAGE = "message";
+    public static final String MESSAGE_PARAMETERS = "message.parameters";
+    public static final String MACHINE_IP = "machine.ip";
     public static final String TIMESTAMP = "timestamp";
     public static final String THREAD_NAME = "thread.name";
     public static final String LOG_LEVEL = "log.level";

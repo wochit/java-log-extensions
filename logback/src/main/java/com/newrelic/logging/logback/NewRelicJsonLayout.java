@@ -4,6 +4,7 @@
  */
 
 package com.newrelic.logging.logback;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
@@ -12,6 +13,8 @@ import ch.qos.logback.core.LayoutBase;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.newrelic.logging.core.ElementName;
 import com.newrelic.logging.core.ExceptionUtil;
+import com.newrelic.logging.core.IPResolveHelper;
+import com.newrelic.logging.core.MessageParser;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -23,6 +26,7 @@ import static com.newrelic.logging.core.ExceptionUtil.MAX_STACK_SIZE;
 
 public class NewRelicJsonLayout extends LayoutBase<ILoggingEvent> {
     private final Integer maxStackSize;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public NewRelicJsonLayout() {
         this(MAX_STACK_SIZE);
@@ -48,13 +52,17 @@ public class NewRelicJsonLayout extends LayoutBase<ILoggingEvent> {
 
     private void writeToGenerator(ILoggingEvent event, JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        
+
         generator.writeStringField(ElementName.MESSAGE, event.getFormattedMessage());
         generator.writeNumberField(ElementName.TIMESTAMP, event.getTimeStamp());
         generator.writeStringField(ElementName.LOG_LEVEL, event.getLevel().toString());
         generator.writeStringField(ElementName.LOGGER_NAME, event.getLoggerName());
         generator.writeStringField(ElementName.THREAD_NAME, event.getThreadName());
 
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, MessageParser.getMessageParameters(event.getFormattedMessage()));
+        generator.writeObjectField(ElementName.MESSAGE_PARAMETERS, writer.toString());
+        generator.writeObjectField(ElementName.MACHINE_IP, IPResolveHelper.getMachineIp());
         if (event.hasCallerData()) {
             StackTraceElement element = event.getCallerData()[event.getCallerData().length - 1];
             generator.writeStringField(ElementName.CLASS_NAME, element.getClassName());

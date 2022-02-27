@@ -6,13 +6,15 @@ package com.newrelic.logging.log4j1;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newrelic.logging.core.ElementName;
 import com.newrelic.logging.core.ExceptionUtil;
+import com.newrelic.logging.core.IPResolveHelper;
+import com.newrelic.logging.core.MessageParser;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LocationInfo;
 import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.spi.ThrowableInformation;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -33,6 +35,8 @@ import java.io.StringWriter;
  * @see <a href="https://logging.apache.org/log4j/2.x/manual/appenders.html#FileAppender">The FileAppender, for example</a>
  */
 public class NewRelicLayout extends Layout {
+    private ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public String format(LoggingEvent event) {
         StringWriter sw = new StringWriter();
@@ -54,6 +58,10 @@ public class NewRelicLayout extends Layout {
         generator.writeObjectField(ElementName.THREAD_NAME, event.getThreadName());
         generator.writeObjectField(ElementName.LOG_LEVEL, event.getLevel().toString());
         generator.writeObjectField(ElementName.LOGGER_NAME, event.getLoggerName());
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, MessageParser.getMessageParameters(event.getRenderedMessage()));
+        generator.writeObjectField(ElementName.MESSAGE_PARAMETERS, writer.toString());
+        generator.writeObjectField(ElementName.MACHINE_IP, IPResolveHelper.getMachineIp());
 
         if (event.getLocationInformation() != null
                 && !event.getLocationInformation().getClassName().equals(LocationInfo.NA)) {

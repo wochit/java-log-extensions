@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.newrelic.logging"
-version = "1.0-SNAPSHOT"
+version = "2.3.5"
 
 repositories {
     mavenCentral()

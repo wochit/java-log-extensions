@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 package com.newrelic.logging.log4j2;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.newrelic.logging.core.ElementName;
 import com.newrelic.logging.core.ExceptionUtil;
+import com.newrelic.logging.core.IPResolveHelper;
+import com.newrelic.logging.core.MessageParser;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
@@ -39,6 +42,7 @@ import java.util.Map;
 @Plugin(name = NewRelicLayout.PLUGIN_NAME, category = "Core", elementType = Layout.ELEMENT_TYPE)
 public class NewRelicLayout extends AbstractStringLayout {
     static final String PLUGIN_NAME = "NewRelicLayout";
+    private ObjectMapper mapper = new ObjectMapper();
 
     @PluginFactory
     public static NewRelicLayout factory() {
@@ -69,7 +73,10 @@ public class NewRelicLayout extends AbstractStringLayout {
         generator.writeObjectField(ElementName.THREAD_NAME, event.getThreadName());
         generator.writeObjectField(ElementName.LOG_LEVEL, event.getLevel().toString());
         generator.writeObjectField(ElementName.LOGGER_NAME, event.getLoggerName());
-
+        generator.writeObjectField(ElementName.MACHINE_IP, IPResolveHelper.getMachineIp());
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, MessageParser.getMessageParameters(event.getMessage().getFormattedMessage()));
+        generator.writeObjectField(ElementName.MESSAGE_PARAMETERS, writer.toString());
         if (event.isIncludeLocation() && event.getSource() != null) {
             generator.writeObjectField(ElementName.CLASS_NAME, event.getSource().getClassName());
             generator.writeObjectField(ElementName.METHOD_NAME, event.getSource().getMethodName());
