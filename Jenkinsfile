@@ -43,7 +43,6 @@ spec:
       {
         container('gradle')
         {
-          sh 'mkdir -p ~/.m2/ && cp /tmp/settings.xml ~/.m2/'
           sh """
           gradle clean  build publish -x test
           """
