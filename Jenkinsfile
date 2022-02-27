@@ -40,16 +40,20 @@
           {
             container('gradle')
             {
-            if(params.DEPLOY_RELEASE == 'false')
-              {
-              sh """
-              gradle clean  build publish -x test
-              """
-              }
-              else
-              {
-              gradle clean  build publish -x test
-              }
+            script
+            {
+                if(params.DEPLOY_RELEASE == 'false')
+                              {
+                              sh """
+                              gradle clean  build publish -x test
+                              """
+                              }
+                              else
+                              {
+                              gradle clean  build publish -x test
+                              }
+                }
+
             }
           }
         }
