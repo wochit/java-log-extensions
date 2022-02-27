@@ -28,6 +28,10 @@ spec:
 """
     }
   }
+    parameters
+    {
+      booleanParam(name: 'DEPLOY_RELEASE', defaultValue: false, description: 'Should deploy to releases or snapshot repo        ')
+    }
   stages
   {
     stage('gradle')
@@ -36,9 +40,15 @@ spec:
       {
         container('gradle')
         {
+        if(params.DEPLOY_RELEASE == 'false')
+          {
           sh """
           gradle clean  build publish -x test
           """
+          }
+          else{
+          gradle clean  build publish -Prelease=true -x test
+          }
         }
       }
     }
