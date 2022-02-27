@@ -21,17 +21,10 @@ spec:
       command:
         - cat
       tty: true
-      volumeMounts:
-        - mountPath: /tmp/
-          name: settings-xml-vol
   nodeSelector:
     nodegroup-type: cicd-workloads
   imagePullSecrets:
     - docker-hub-cred
-  volumes:
-    - name: settings-xml-vol
-      secret:
-        secretName: settings-xml
 """
     }
   }
