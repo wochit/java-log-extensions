@@ -9,7 +9,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.LayoutBase;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.newrelic.logging.logback.NewRelicJsonLayout;
-import io.dropwizard.logging.layout.DiscoverableLayoutFactory;
+import io.dropwizard.logging.common.layout.DiscoverableLayoutFactory;
 
 import java.util.TimeZone;
 

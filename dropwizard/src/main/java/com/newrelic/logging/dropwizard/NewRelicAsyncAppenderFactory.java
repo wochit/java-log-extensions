@@ -8,7 +8,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AsyncAppenderBase;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.newrelic.logging.logback.NewRelicAsyncAppender;
-import io.dropwizard.logging.async.AsyncLoggingEventAppenderFactory;
+import io.dropwizard.logging.common.async.AsyncLoggingEventAppenderFactory;
 
 @JsonTypeName("newrelic")
 public class NewRelicAsyncAppenderFactory extends AsyncLoggingEventAppenderFactory {

@@ -7,11 +7,11 @@ package com.newrelic.logging.dropwizard.access;
 import com.newrelic.api.agent.Agent;
 import com.newrelic.api.agent.NewRelic;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 import java.util.function.Supplier;
 
@@ -21,7 +21,7 @@ import java.util.function.Supplier;
  * @see Agent#getLinkingMetadata()
  * @see ServletRequest#setAttribute(String, Object)
  */
-public class LinkingMetadataAsRequestAttributesFilter implements javax.servlet.Filter {
+public class LinkingMetadataAsRequestAttributesFilter implements jakarta.servlet.Filter {
     public LinkingMetadataAsRequestAttributesFilter() {
         this(NewRelic::getAgent);
     }

@@ -10,9 +10,9 @@ import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.Context;
 import ch.qos.logback.core.LayoutBase;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import io.dropwizard.logging.ConsoleAppenderFactory;
-import io.dropwizard.logging.async.AsyncAppenderFactory;
-import io.dropwizard.logging.layout.LayoutFactory;
+import io.dropwizard.logging.common.ConsoleAppenderFactory;
+import io.dropwizard.logging.common.async.AsyncAppenderFactory;
+import io.dropwizard.logging.common.layout.LayoutFactory;
 
 @JsonTypeName("newrelic-console")
 public class NewRelicConsoleAppenderFactory extends ConsoleAppenderFactory<ILoggingEvent> {

@@ -1,6 +1,6 @@
 plugins {
     java
-    id("com.github.spotbugs").version("4.4.4")
+    id("com.github.spotbugs").version("5.2.1")
 }
 
 group = "com.newrelic.logging"
@@ -14,23 +14,22 @@ version = releaseVersion + if ("true" == release) "" else "-SNAPSHOT"
 repositories {
     mavenLocal()
     mavenCentral()
-    maven(url = "https://dl.bintray.com/mockito/maven/")
 }
 
 val includeInJar: Configuration by configurations.creating
 configurations["compileOnly"].extendsFrom(includeInJar)
 
 dependencies {
-    annotationProcessor("org.apache.logging.log4j:log4j-core:2.17.1")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.17.1")
-    implementation("com.newrelic.agent.java:newrelic-api:7.4.3")
+    annotationProcessor("org.apache.logging.log4j:log4j-core:2.23.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.16.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation("org.apache.logging.log4j:log4j-core:2.23.1")
+    implementation("com.newrelic.agent.java:newrelic-api:8.9.1")
     includeInJar(project(":core"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
-    testImplementation("com.google.guava:guava:29.0-jre")
-    testImplementation("org.mockito:mockito-core:3.4.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testImplementation("com.google.guava:guava:33.0.0-jre")
+    testImplementation("org.mockito:mockito-core:5.8.0")
     testImplementation(project(":core"))
     testImplementation(project(":core-test"))
 }
@@ -50,8 +49,8 @@ tasks.withType<Javadoc> {
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 tasks.register<Jar>("sourcesJar") {

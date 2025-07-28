@@ -3,19 +3,19 @@ plugins {
 }
 
 group = "com.newrelic.logging"
-version = "2.3.5"
+version = "3.0.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.junit.jupiter:junit-jupiter:5.6.2")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
+    implementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.16.1")
     implementation(project(":core"))
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }

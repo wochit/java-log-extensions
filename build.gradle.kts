@@ -1,5 +1,5 @@
 group = "com.newrelic.logging"
-version = "2.3.5"
+version = "3.0.0"
 
 repositories {
     mavenCentral()
@@ -9,7 +9,7 @@ subprojects {
     tasks.withType<Test>().all {
         useJUnitPlatform()
         // flag for tests reports
-        reports.junitXml.isEnabled = false
+        reports.junitXml.required.set(false)
     }
 
     tasks.withType<Javadoc>().all {
@@ -20,6 +20,5 @@ subprojects {
         options.compilerArgs.add("-Xlint:unchecked")
         options.isDeprecation = true
     }
-
 }
 

@@ -1,6 +1,6 @@
 plugins {
     java
-    id("com.github.spotbugs").version("4.4.4")
+    id("com.github.spotbugs").version("5.2.1")
 }
 
 group = "com.newrelic.logging"
@@ -13,25 +13,24 @@ version = releaseVersion + if ("true" == release) "" else "-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven(url = "https://dl.bintray.com/mockito/maven/")
 }
 
 val includeInJar: Configuration by configurations.creating
 configurations["compileOnly"].extendsFrom(includeInJar)
 
 dependencies {
-    implementation("io.dropwizard:dropwizard-logging:1.3.14")
-    implementation("io.dropwizard:dropwizard-request-logging:1.3.14")
-    implementation("javax.servlet:javax.servlet-api:3.1.0")
-
-    implementation("com.newrelic.agent.java:newrelic-api:7.4.3")
+    implementation("io.dropwizard:dropwizard-logging:4.0.13")
+    implementation("io.dropwizard:dropwizard-request-logging:4.0.13")
+    implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
+    implementation("com.newrelic.agent.java:newrelic-api:8.9.1")
+    implementation("ch.qos.logback:logback-access:1.4.14")
     includeInJar(project(":logback")) {
         isTransitive = false
     }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
-    testImplementation("org.mockito:mockito-core:3.4.4")
-    testImplementation("org.mockito:mockito-junit-jupiter:3.4.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testImplementation("org.mockito:mockito-core:5.8.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.8.0")
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation(project(":logback"))
 }
@@ -50,8 +49,8 @@ tasks.withType<Javadoc> {
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 tasks.register<Jar>("sourcesJar") {

@@ -8,7 +8,7 @@ import ch.qos.logback.access.spi.IAccessEvent;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.core.LayoutBase;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import io.dropwizard.logging.layout.DiscoverableLayoutFactory;
+import io.dropwizard.logging.common.layout.DiscoverableLayoutFactory;
 
 import java.util.TimeZone;
 
