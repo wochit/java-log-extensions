@@ -17,7 +17,7 @@ metadata:
 spec:
   containers:
     - name: gradle
-      image: gradle:6-jdk8
+      image: gradle:8.5-jdk11
       command:
         - cat
       tty: true

@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.10.1")
     implementation("com.fasterxml.jackson.core:jackson-core:2.16.1")
+    implementation("com.google.guava:guava:33.0.0-jre")
     implementation(project(":core"))
 }
 
