@@ -34,8 +34,8 @@ configure<PublishingExtension> {
     }
     repositories {
         maven {
-            val releasesRepoUrl = uri("http://dev.internal.wochit.com:8081/nexus/content/repositories/releases/")
-            val snapshotsRepoUrl = uri("http://dev.internal.wochit.com:8081/nexus/content/repositories/snapshots/")
+            val releasesRepoUrl = uri("https://nexus.wochit.com/repository/releases/")
+            val snapshotsRepoUrl = uri("https://nexus.wochit.com/repository/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 
             configure<SigningExtension> {
