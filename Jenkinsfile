@@ -41,7 +41,7 @@ spec:
         container('gradle')
         {
           sh """
-          gradle clean  build publish -Prelease=${params.DEPLOY_RELEASE} -x test -x spotbugsTest
+          gradle clean  build publish -Prelease=${params.DEPLOY_RELEASE} -x test -x spotbugsTest -x javadoc
           """
         }
       }
