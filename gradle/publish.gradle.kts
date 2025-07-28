@@ -48,8 +48,8 @@ configure<PublishingExtension> {
             }
 
             credentials {
-                username = "gal.mazor"
-                password = "123456" 
+                username = "ronen"
+                password = "zt4zuvYjecmqXa9z4WET"
             }
         }
     }
