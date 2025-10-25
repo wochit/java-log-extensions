@@ -1,2 +1,0 @@
-com.newrelic.logging.dropwizard.NewRelicFileAppenderFactory
-com.newrelic.logging.dropwizard.NewRelicConsoleAppenderFactory

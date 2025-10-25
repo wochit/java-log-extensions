@@ -23,7 +23,7 @@ dependencies {
     implementation("io.dropwizard:dropwizard-request-logging:4.0.13")
     implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
     implementation("com.newrelic.agent.java:newrelic-api:8.9.1")
-    implementation("ch.qos.logback:logback-access:1.4.14")
+    implementation("ch.qos.logback.access:logback-access-common:2.0.6")
     includeInJar(project(":logback")) {
         isTransitive = false
     }
